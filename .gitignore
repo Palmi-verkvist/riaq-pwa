@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Data files — keep CSV sensor exports out of version control
+*.csv
+data/
