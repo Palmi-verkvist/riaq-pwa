@@ -5,6 +5,7 @@ import streamlit as st
 
 from analysis.decay_engine import normalise_dataframe, run_analysis
 from translations import t
+from utils.ui import render_footer
 
 _REQUIRED_RAW = {"HouseNo.", "dtm", "co2, ppm"}
 
@@ -148,3 +149,5 @@ def render_upload_page(lang: str) -> None:
         if st.button(t("navigate_dashboard", lang)):
             st.session_state.page = "dashboard"
             st.rerun()
+
+    render_footer()

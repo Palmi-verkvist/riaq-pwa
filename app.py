@@ -1,5 +1,6 @@
 import streamlit as st
 
+import brand
 from analysis.decay_engine import QCParams, run_analysis
 from components.upload import render_upload_page
 from components.dashboard import render_dashboard
@@ -7,10 +8,13 @@ from components.export import render_export_page
 from translations import t
 
 st.set_page_config(
-    page_title="RIAQ",
+    page_title="RIAQ PWA — VERKVIST",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ── Brand CSS ─────────────────────────────────────────────────────────────────
+st.markdown(brand.STREAMLIT_CSS, unsafe_allow_html=True)
 
 # ── Session state defaults ────────────────────────────────────────────────────
 _DEFAULTS = {
@@ -28,10 +32,22 @@ for _k, _v in _DEFAULTS.items():
         st.session_state[_k] = _v
 
 lang = st.session_state.lang
+_app = brand.APPS["riaq_pwa"]
+_tagline = _app["tagline_en"] if lang == "en" else _app["tagline_is"]
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.title("RIAQ")
+    # VERKVIST logo text + app tagline
+    st.markdown(
+        f"""
+        <div style="padding: 0.75rem 0 1rem 0; letter-spacing: 0.05em;">
+            <div style="font-size: 1.35rem; font-weight: 700; color: white;">VERKVIST</div>
+            <div style="font-size: 0.78rem; color: {brand.COLOURS['light_green']};
+                        margin-top: 2px;">{_tagline}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # Language toggle
     lang_choice = st.radio(

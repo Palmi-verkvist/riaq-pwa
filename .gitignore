@@ -220,3 +220,6 @@ __marimo__/
 # Data files — keep CSV sensor exports out of version control
 *.csv
 data/
+
+# Test output PDFs
+test_output_*.pdf

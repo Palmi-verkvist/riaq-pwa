@@ -7,6 +7,7 @@ from components.charts import (
     plot_co2_timeline,
 )
 from translations import t
+from utils.ui import render_footer
 
 
 def _filtered_results(lang: str):
@@ -36,6 +37,7 @@ def _filtered_results(lang: str):
 def render_dashboard(lang: str) -> None:
     if st.session_state.results is None or len(st.session_state.results) == 0:
         st.info(t("no_results", lang))
+        render_footer()
         return
 
     params = st.session_state.get("_params")
@@ -43,6 +45,7 @@ def render_dashboard(lang: str) -> None:
 
     if results.empty:
         st.warning(t("no_data", lang))
+        render_footer()
         return
 
     st.header(t("dashboard_title", lang))
@@ -102,3 +105,5 @@ def render_dashboard(lang: str) -> None:
         plot_ach_vs_decay_rate(results, params, lang),
         use_container_width=True,
     )
+
+    render_footer()
